@@ -20,6 +20,7 @@ var flight = {
         IATA: "LAX",
         time: "2004-09-23 10:42",
         city: "Los Angeles"
+
     }
 };
 
