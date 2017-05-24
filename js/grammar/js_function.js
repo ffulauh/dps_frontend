@@ -89,7 +89,7 @@ var try_it=function () {
 }
 try_it();
 
-//扩充类型的功能
+//扩充类型的功能 *
 Function.prototype.method=function (name,func) {
     if(!this.prototype[name]){
         this.prototype[name]=func;
@@ -101,5 +101,13 @@ String.method('trim',function () {
 });
 var han=" han ";
 document.writeln(han.length);
-han.trim();
+han=han.trim();
 document.writeln(han.length);
+
+//作用域
+//js不支持块级作用域
+//其他语言都尽可能延迟声明变量
+//在函数体的顶部声明函数中可能用到的所有变量
+
+
+

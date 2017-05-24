@@ -2,7 +2,7 @@
  * Created by ffulauh on 2017/4/20.
  */
 
-//对象字面了 Object Literals
+//对象字面量 Object Literals
 var empty_object = {};
 var stooge = {
     "first-name": "Jerome",  //js的标识符中包含-是不合法的
