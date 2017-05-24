@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>ws_client_demo</title>
+
+    <link href="../../common/plugins/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+    <button onclick="sockDemo()">呵呵</button>
+</div>
+
+
+
+
+<script src="../../common/jquery-3.2.1.min.js"></script>
+<script src="../../common/plugins/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script src="../../common/sockjs.js"></script>
+<script>
+    function sockDemo() {
+        var sock=new SockJS("http://192.168.1.139/myHandler");
+        sock.onopen=function () {
+            console.log('open');
+            sock.send('test');
+        };
+        sock.onmessage=function (e) {
+            console.log('message',e.data);
+            sock.close();
+        };
+        sock.onclose=function () {
+            console.log('close');
+        }
+    }
+
+</script>
+</body>
+</html>
