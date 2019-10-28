@@ -3,7 +3,7 @@
  */
 var add = function (a,b) {
     return a+b;
-}
+};
 
 // 1.方法调用模式
 // 当一个函数被保存为对象的一个属性时，我们称它为一个方法
@@ -21,22 +21,27 @@ myObject.increment(2);
 //2.函数调用模式
 //当一个函数并非一个对象属性时，那么它就是被当做一个函数来调用的，以此模式调用函数是，this被绑定到全局对象
 //给myObject增加一个double方法
+function hehe() {
+    alert(this);    //this [object Window]
+}
 myObject.double = function () {
 
     var that = this;    //解决方法
     var helper=function () {
+        alert(this);    //this [object Window]
         that.value=add(that.value,that.value);
     };
-    helper();
-}
-myObject.double();
+    hehe();
+    // helper();
+};
+// myObject.double();
 // document.writeln(myObject.value);
 
 //3.构造器调用模式(不推荐)
 //一个函数，如果创建的目的就是希望结合new前缀来调用，那么他就被称为构造器函数
 var Que=function (string) {
     this.status=string;
-}
+};
 Que.prototype.get_status=function () {
   return this.status;
 };
@@ -86,7 +91,7 @@ var try_it=function () {
     } catch (e) {
         // document.writeln(e.name+":"+e.message);
     }
-}
+};
 try_it();
 
 //扩充类型的功能 *
@@ -100,14 +105,79 @@ String.method('trim',function () {
    return this.replace(/^\s+|\s+$/g,'') ;
 });
 var han=" han ";
-document.writeln(han.length);
-han=han.trim();
-document.writeln(han.length);
+// document.writeln(han.length);
+// han=han.trim();
+// document.writeln(han.length);
 
 //作用域
 //js不支持块级作用域
 //其他语言都尽可能延迟声明变量
 //在函数体的顶部声明函数中可能用到的所有变量
+//函数内部声明变量时加var，否则是全局变量
+
+//闭包
+//把调用该函数后返回的结果赋值给myObject，该函数返回一个包含两个方法的对象，并且这些方法继续享有访问value变量的特权
+// var myObject=(function () {
+//    var value=0;
+//    return {
+//        increment:function (inc) {
+//            value+=typeof inc ==="number"?inc:1;
+//        },
+//        getValue:function () {
+//            return value;
+//        }
+//    };
+// }());
+
+// var name = "The Window";
+// var object = {
+//     name : "My Object",
+//     getNameFunc : function(){
+//         return function(){
+//             return this.name;
+//         };
+//     }
+// };
+
+// var name = "The Window";
+// var object = {
+//     name : "My Object",
+//     getNameFunc : function(){
+//         alert(this.name);   //My Ojbect
+//         var that = this;
+//         return function(){
+//             return that.name;
+//         };
+//     }
+// };
+// alert(object.getNameFunc()());
+
+//模块 module
+var serial_maker=function () {
+
+    var prefix="";
+    var seq=0;
+    return {
+        set_prefix:function (p) {
+            prefix=String(p);
+        },
+        set_seq:function (s) {
+            seq=s;
+        },
+        gensym:function () {
+            var result=prefix+seq;
+            seq+=1;
+            return result;
+        }
+    }
+};
+var seqer=serial_maker();
+seqer.set_prefix("Q");
+seqer.set_seq(1000);
+var unique=seqer.gensym();
+alert("unique:"+unique);
+alert("result in gensym:"+seqer.gensym().g);
+
 
 
 
